@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys
 
 def get_tg_prefix(filepath):
