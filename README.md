@@ -2,4 +2,4 @@
 
 ---
 
-Some common tools.
+Convenience tools for manipulating sequencing files.
