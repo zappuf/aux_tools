@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from multiprocessing import cpu_count
+
 def get_cpu_limit():
   with open("/sys/fs/cgroup/cpu/cpu.cfs_quota_us") as fp:
     cfs_quota_us = int(fp.read())
