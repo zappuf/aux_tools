@@ -9,7 +9,6 @@ def get_cpu_limit():
     cfs_period_us = int(fp.read())
   container_cpus = cfs_quota_us // cfs_period_us
   # For physical machine, the `cfs_quota_us` could be '-1'
-  cpus = cpu_count() if container_cpus < 1 else container_cpus
-  return cpus
+  return cpu_count() if container_cpus < 1 else container_cpus
 
 print(get_cpu_limit())

@@ -2,6 +2,8 @@
 import sys
 
 def get_read_direction(filepath):
+    if "_" not in filepath:
+        return ""
     filename = filepath.split("/")[-1]
     return filename.split("_")[-1].split(".")[0]
 
