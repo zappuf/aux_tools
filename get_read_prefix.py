@@ -7,4 +7,8 @@ def get_prefix(filename="", split_position="-1"):
         return "_".join(prefix_list)
     else:
         return filename.split(".")[0]
-print(get_prefix(sys.argv[1], sys.argv[2]))
+
+if len(sys.argv) > 2:
+    print(get_prefix(sys.argv[1], sys.argv[2]))
+else:
+    print(get_prefix(sys.argv[1]))
