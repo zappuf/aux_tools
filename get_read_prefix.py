@@ -2,7 +2,7 @@
 import sys
 
 def get_prefix(filename="", split_position="-1"):
-    if "_" in filename:
+    if "_" in filename and int(split_position):
         prefix_list = filename.split("_")[:int(split_position)]
         return "_".join(prefix_list)
     else:
