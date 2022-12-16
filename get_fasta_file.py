@@ -40,7 +40,7 @@ def main(argv=None):
     logging.info(f"Input dir to search for fasta files {args.input_dir}")
     fasta_file = find_fasta_file(args.input_dir)
     if fasta_file:
-        print(str(find_fasta_file(args.input_dir)))
+        print(str(fasta_file))
     else:
         logger.error("Unable to find fasta file!")
         return 1
