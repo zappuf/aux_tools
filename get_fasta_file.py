@@ -31,7 +31,9 @@ def find_fasta_file(input_path: Path):
     for input_file in input_files:
         input_file = Path(input_file)
         logger.debug(f"Input file {input_file}")
-        return find_extension(input_file)
+        fasta_file = find_extension(input_file)
+        if fasta_file != "":
+            return fasta_file
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Find fasta files recursively from input directory")
@@ -62,7 +64,7 @@ def test_generic_gzip():
     input_file = Path("/data/test.fa.gz")
     assert str(find_extension(input_file)) == "/data/test.fa.gz"
 
-def test_generic_gzip():
+def test_faindex():
     input_file = Path("/data/test.fa.gz.fai")
     assert str(find_extension(input_file)) == ""
 
