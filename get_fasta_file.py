@@ -9,14 +9,20 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 NUCLEIC_ACID_EXTENSIONS = [".fa", ".fna", ".ffn", ".frn"]
+ALL_SUFFIXES = NUCLEIC_ACID_EXTENSIONS + ['.gz', '.bgz']
 
 def find_extension(input_file: Path):
     suffixes = input_file.suffixes
     logger.debug(f"Suffixes {suffixes}")
-    for suffix in suffixes:
-        if suffix in NUCLEIC_ACID_EXTENSIONS:
+    mismatch_suffix = set(suffixes) - set(ALL_SUFFIXES)
+    if len(mismatch_suffix) > 0: #check that all suffixes are allowed
+        logging.info(f"Suffix {mismatch_suffix} not allowed.")
+    else:
+        matching_suffix = set(suffixes) & set(NUCLEIC_ACID_EXTENSIONS)
+        if len(matching_suffix) == 1:
             logger.info(f"Matched fasta file {input_file}")
             return input_file
+    return ""
 
 def find_fasta_file(input_path: Path):
     input_files = glob.glob(str(input_path / "**/*.f*"), recursive=True)
@@ -55,6 +61,10 @@ def test_generic_fasta():
 def test_generic_gzip():
     input_file = Path("/data/test.fa.gz")
     assert str(find_extension(input_file)) == "/data/test.fa.gz"
+
+def test_generic_gzip():
+    input_file = Path("/data/test.fa.gz.fai")
+    assert str(find_extension(input_file)) == ""
 
 def test_nucleic_acid_fasta():
     input_file = Path("/data/test.fna")
