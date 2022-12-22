@@ -8,8 +8,8 @@ import argparse
 logger = logging.getLogger(__name__)
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-NUCLEIC_ACID_EXTENSIONS = [".fa", ".fna", ".ffn", ".frn"]
-ALL_SUFFIXES = NUCLEIC_ACID_EXTENSIONS + ['.gz', '.bgz']
+FASTA_EXTENSIONS = [".fa", ".fna", ".ffn", ".frn", ".fasta", ".faa"]
+ALL_SUFFIXES = FASTA_EXTENSIONS + ['.gz', '.bgz']
 
 def find_extension(input_file: Path):
     suffixes = input_file.suffixes
@@ -18,7 +18,7 @@ def find_extension(input_file: Path):
     if len(mismatch_suffix) > 0: #check that all suffixes are allowed
         logging.info(f"Suffix {mismatch_suffix} not allowed.")
     else:
-        matching_suffix = set(suffixes) & set(NUCLEIC_ACID_EXTENSIONS)
+        matching_suffix = set(suffixes) & set(FASTA_EXTENSIONS)
         if len(matching_suffix) == 1:
             logger.info(f"Matched fasta file {input_file}")
             return input_file
@@ -71,3 +71,7 @@ def test_faindex():
 def test_nucleic_acid_fasta():
     input_file = Path("/data/test.fna")
     assert str(find_extension(input_file)) == "/data/test.fna"
+
+def test_amino_acid_fasta():
+        input_file = Path("/data/test.faa.gz")
+        assert str(find_extension(input_file)) == "/data/test.faa.gz"
