@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
 from pathlib import Path
-import glob
+from glob import glob
 import logging
 import argparse
 
@@ -25,7 +25,7 @@ def find_extension(input_file: Path):
     return ""
 
 def find_fasta_file(input_path: Path):
-    input_files = glob.glob(str(input_path / "**/*.f*"), recursive=True)
+    input_files = glob(str(input_path / "**/*.f*"), recursive=True)
     logger.debug(f"Found possible fasta matches: {input_files}")
 
     matched_files = []
@@ -60,7 +60,7 @@ def main(argv=None):
     logging.info(f"Input dir to search for fasta files {args.input_dir}")
     fasta_file = find_fasta_file(args.input_dir)
     if fasta_file:
-        print(str(fasta_file))
+        print(fasta_file)
     else:
         logger.error("Unable to find fasta file!")
         return 1
