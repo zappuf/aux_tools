@@ -5,11 +5,13 @@ from glob import glob
 import logging
 import argparse
 
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 FASTA_EXTENSIONS = [".fa", ".fna", ".ffn", ".frn", ".fasta", ".faa"]
 ALL_SUFFIXES = FASTA_EXTENSIONS + ['.gz', '.bgz']
+
 
 def find_extension(input_file: Path):
     suffixes = input_file.suffixes
@@ -23,6 +25,7 @@ def find_extension(input_file: Path):
             logger.info(f"Matched fasta file {input_file}")
             return input_file
     return ""
+
 
 def find_fasta_file(input_path: Path):
     input_files = glob(str(input_path / "**/*.f*"), recursive=True)
@@ -64,6 +67,7 @@ def main(argv=None):
     else:
         logger.error("Unable to find fasta file!")
         return 1
+
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))
