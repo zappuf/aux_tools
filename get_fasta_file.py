@@ -34,9 +34,8 @@ def find_fasta_file(input_path: Path):
     matched_files = []
 
     for input_file in input_files:
-        input_file = Path(input_file)
         logger.debug(f"Input file {input_file}")
-        fasta_file = find_extension(input_file)
+        fasta_file = find_extension(Path(input_file))
         if fasta_file != "":
             matched_files.append(fasta_file)
     if len(matched_files) > 1:
