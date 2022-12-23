@@ -28,12 +28,24 @@ def find_fasta_file(input_path: Path):
     input_files = glob.glob(str(input_path / "**/*.f*"), recursive=True)
     logger.debug(f"Found possible fasta matches: {input_files}")
 
+    matched_files = []
+
     for input_file in input_files:
         input_file = Path(input_file)
         logger.debug(f"Input file {input_file}")
         fasta_file = find_extension(input_file)
         if fasta_file != "":
-            return fasta_file
+            matched_files.append(fasta_file)
+    if len(matched_files) > 1:
+        logger.warning(f"More than one fasta file matched! Will only return {matched_files[0]}")
+        return matched_files[0]
+    elif len(matched_files) == 1:
+        logger.info(f"Matched {matched_files[0]}")
+        return matched_files[0]
+    else:
+        logger.warning("Unable to find matching fasta file.")
+        return ""
+
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Find fasta files recursively from input directory")
