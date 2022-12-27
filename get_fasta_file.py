@@ -1,10 +1,9 @@
 #!/usr/bin/env python
-import sys
-from pathlib import Path
+import argparse
 from glob import glob
 import logging
-import argparse
-
+from pathlib import Path
+import sys
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -17,7 +16,7 @@ def find_extension(input_file: Path):
     suffixes = input_file.suffixes
     logger.debug(f"Suffixes {suffixes}")
     mismatch_suffix = set(suffixes) - set(ALL_SUFFIXES)
-    if len(mismatch_suffix) > 0: #check that all suffixes are allowed
+    if len(mismatch_suffix) > 0:  # check that all suffixes are allowed
         logging.info(f"Suffix {mismatch_suffix} not allowed.")
     else:
         matching_suffix = set(suffixes) & set(FASTA_EXTENSIONS)
